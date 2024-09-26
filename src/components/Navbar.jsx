@@ -5,13 +5,18 @@ import { Link } from "react-router-dom";
 import { FcStackOfPhotos } from "react-icons/fc";
 import { FaMoon, FaSun, FaHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { NavLinks } from "./";
 
 // mode from local storage
 const modeFromLoalStorage = () => {
   return localStorage.getItem("theme-mode") || "winter";
 };
 
+// global context
+import { useGlobalContext } from "../hooks/useGLobalContext";
+
 function Navbar() {
+  const { likedImages } = useGlobalContext();
   const [theme, setTheme] = useState(modeFromLoalStorage());
 
   const changeTheme = () => {
@@ -40,33 +45,20 @@ function Navbar() {
               tabIndex={0}
               className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Item 2</a>
-              </li>
+              <NavLinks />
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal bg-base-200 rounded-box">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
+            <NavLinks />
           </ul>
         </div>
         <div className="navbar-end">
           <Link to="/likedImages" className="mr-5">
             <span className="indicator">
               <span className="indicator-item badge badge-sm badge-secondary">
-                99+
+                {likedImages.length}
               </span>
               <FaHeart className="w-7 h-7" />
             </span>

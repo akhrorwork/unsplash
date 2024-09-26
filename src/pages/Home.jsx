@@ -21,7 +21,6 @@ function Home() {
   const searchParamFromAction = useActionData();
   const [allImages, setAllImages] = useState([]);
 
-  // To track previous search param
   const prevSearchParam = useRef(searchParamFromAction);
 
   const { data, loading, error } = useFetch(
@@ -31,24 +30,20 @@ function Home() {
   );
 
   useEffect(() => {
-    // If searchParamFromAction changes, reset allImages and pageParam
     if (searchParamFromAction !== prevSearchParam.current) {
-      setPageParam(1); // Reset page to 1
-      setAllImages([]); // Reset images
-      prevSearchParam.current = searchParamFromAction; // Update ref
+      setPageParam(1);
+      setAllImages([]);
+      prevSearchParam.current = searchParamFromAction;
     }
-    console.log(1);
   }, [searchParamFromAction]);
 
   useEffect(() => {
-    if (data) {
-      // If the pageParam is 1, replace images, otherwise append new data
+    if (data && data.results) {
       setAllImages((prevImages) =>
         pageParam === 1 ? data.results : [...prevImages, ...data.results]
       );
     }
-    console.log(2);
-  }, [data, pageParam]);
+  }, [data]);
 
   if (loading) {
     return <h1>Loading...</h1>;

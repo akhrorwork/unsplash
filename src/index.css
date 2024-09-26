@@ -3,7 +3,33 @@
 @tailwind utilities;
 
 @layer components {
+  #root,
+  html,
+  body {
+    @apply h-full;
+  }
+
+  #root {
+    @apply flex flex-col;
+  }
+
+  main {
+    @apply grow;
+  }
+
   .align-elements {
     @apply max-w-[1500px] mx-auto px-5;
+  }
+
+  .liked-icon {
+    @apply border border-white rounded-full flex justify-center items-center top-2 right-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer;
+  }
+
+  .liked-icon-liked {
+    @apply border border-white rounded-full flex justify-center items-center top-2 right-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer bg-white;
+  }
+
+  .download-icon {
+    @apply text-white bottom-4 right-4 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer;
   }
 }
